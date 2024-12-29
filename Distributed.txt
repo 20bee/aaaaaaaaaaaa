@@ -1,0 +1,273 @@
+*Riverse*
+
+//.x file
+
+program REVERSE_PROG {
+    version REVERSE_VERS {
+        int reverse_number(int) = 1;
+    } = 1;
+} = 0x20000001;
+
+//client.c
+
+printf("Reversed number: %d\n", *result);
+    clnt_destroy(client);
+    return 0;
+
+//server.c
+
+ while (temp != 0) {
+        int digit = temp % 10;
+        reversed = reversed * 10 + digit;
+        temp /= 10;
+    }
+
+*Cylinder*
+
+//.x file
+
+program CYLINDERPRO {
+
+    version CYLINDERVER {
+
+        float AREA(void) = 1;
+        float PERIMETER(void) = 2;
+        float VOLUME(void) = 3;
+
+    } = 1;
+
+} =0x11115555;
+
+//client.c
+
+float height = 10;
+	float area = (2.0 * 3.14 * height * (*result_1)) + (2.0 * 3.14 *(*result_1) * (*result_1));
+	printf("Area is : %f\n",area);
+
+float perimeter = 4.0 * (*result_2) + 2.0 * height;
+	printf("Perimeter is : %f\n",perimeter);
+
+float volume = 3.14 * (*result_3) * (*result_3) * height;
+	printf("Volume is : %f\n",volume);
+
+//server.c
+
+static float  result;
+
+	result = 7;
+
+static float  result;
+
+	result = 7;
+
+static float  result;
+
+	result = 7;
+
+*circle*
+
+//.x file
+
+program CIRCLEPRO {
+
+    version CIRCLEVER {
+
+        float DIAMETER(void) = 1;
+        float CIRCUMFERENCE(void) = 2;
+        float AREA(void) = 3;
+
+    } = 1;
+
+} =0x11114444;
+
+//client.c
+
+float diameter = 2.0 * (*result_1);
+	printf("Diameter is : %f\n",diameter);
+
+float circumference = 2.0 * 3.14 *(*result_2);
+	printf("Circumference is : %f\n",circumference);
+
+float area = 3.14 * (*result_3) * (*result_3);
+	printf("Are is : %f\n",area);
+
+//server.c
+
+static float  result;
+
+	result = 14;
+
+static float  result;
+
+	result = 14;
+
+static float  result;
+
+	result = 14;
+
+*factorial*
+
+//.x file
+
+struct mul {
+    int no;
+};
+
+program FACTORIALPRO {
+    version FACTORIALVER {
+        int factorial(mul) = 1;
+    } = 1;
+} =0x12347777;
+
+//client.c
+
+printf("Enter a number : ");
+	scanf("%d",&(factorial_1_arg.no));
+
+printf("Factorial : %d\n",*result_1);
+
+//server.c
+
+static int  result;
+	static int sum = 1;
+
+	for (int x = 1; x <= argp->no; x++) {
+        sum = sum * x;
+    }
+	result = sum;
+
+*RMI*
+
+*Fibonnacci*
+
+// Remote Interface: Fibonacci.java
+import java.rmi.Remote;
+import java.rmi.RemoteException;
+
+public interface Fibonacci extends Remote {
+    String getFibonacciSeries(int n) throws RemoteException;
+}
+
+// Implementation Class: FibonacciImpl.java
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+
+public class FibonacciImpl extends UnicastRemoteObject implements Fibonacci {
+
+    protected FibonacciImpl() throws RemoteException {
+        super();
+    }
+
+    @Override
+    public String getFibonacciSeries(int n) throws RemoteException {
+        if (n <= 0) {
+            return "Invalid input. Number must be greater than 0.";
+        }
+        StringBuilder series = new StringBuilder();
+        int a = 0, b = 1;
+        series.append(a);
+        if (n > 1) {
+            series.append(", ").append(b);
+            for (int i = 2; i < n; i++) {
+                int next = a + b;
+                series.append(", ").append(next);
+                a = b;
+                b = next;
+            }
+        }
+        return series.toString();
+    }
+}
+
+// RMI Server Code: FibonacciServer.java
+import java.rmi.Naming;
+import java.rmi.RemoteException;
+
+public class FibonacciServer {
+
+    public static void main(String[] args) {
+        try {
+            FibonacciImpl server = new FibonacciImpl();
+            Naming.rebind("FibonacciService", server);
+            System.out.println("Fibonacci Server is ready.");
+        } catch (Exception e) {
+            System.err.println("Server exception: " + e.toString());
+            e.printStackTrace();
+        }
+    }
+}
+
+// RMI Client Code: FibonacciClient.java
+import java.rmi.Naming;
+
+public class FibonacciClient {
+    public static void main(String[] args) {
+        try {
+            if (args.length != 1) {
+                System.out.println("Usage: java FibonacciClient <number>");
+                return;
+            }
+
+            int n = Integer.parseInt(args[0]);
+            Fibonacci service = (Fibonacci) Naming.lookup("FibonacciService");
+            String series = service.getFibonacciSeries(n);
+
+            System.out.println("Fibonacci series for n=" + n + ": " + series);
+        } catch (Exception e) {
+            System.err.println("Client exception: " + e.toString());
+            e.printStackTrace();
+        }
+    }
+}
+
+*MPI*
+
+*pingpong*
+
+#include <mpi.h>
+#include <stdio.h>
+
+int main(int argc, char** argv){
+
+	// intialize 
+	MPI_Init(NULL,NULL);
+
+	//no of processes
+	int world_size;
+	MPI_Comm_size(MPI_COMM_WORLD,&world_size);
+
+	//rank of the process
+	int world_rank;
+	MPI_Comm_rank(MPI_COMM_WORLD,&world_rank);
+
+	//no of porcesses should be atleast 2
+	if(world_size<2){
+		printf("No. of processes has to be atleast 2\n");
+		MPI_Abort(MPI_COMM_WORLD,1);
+
+	}
+
+	//ping pong logic
+	int PING_PONG_LIMIT = 10;
+	int ping_pong_count = 0;
+	int partner_rank = (world_rank+1)%2;
+
+	while(ping_pong_count< PING_PONG_LIMIT){
+		if(world_rank == ping_pong_count%2){
+			ping_pong_count++;
+			MPI_Send(&ping_pong_count,1,MPI_INT,partner_rank,0,MPI_COMM_WORLD);
+		}
+		else{
+			MPI_Recv(&ping_pong_count,1,MPI_INT,partner_rank,0,MPI_COMM_WORLD,MPI_STATUS_IGNORE);
+			printf("Process %d receive count %d from process %d\n",world_rank,ping_pong_count,partner_rank);
+	}
+	}
+
+	//finalize
+	MPI_Finalize();
+
+}
+
+
+
+
